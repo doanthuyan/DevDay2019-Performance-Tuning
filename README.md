@@ -1,6 +1,8 @@
 # DevDay2019-Performance-Tuning
 DevDay2019 for Performance Tuning
 
+[![Actions Status](https://github.com/doanthuyan/DevDay2019-Performance-Tuning/workflows/Java%20CI/badge.svg)](https://github.com/doanthuyan/DevDay2019-Performance-Tuning/actions)
+
 # Kick up and run
 
 ## 1. Run with default setting (local DB, default ports)
