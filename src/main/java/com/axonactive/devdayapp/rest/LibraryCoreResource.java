@@ -2,6 +2,7 @@ package com.axonactive.devdayapp.rest;
 
 import java.util.List;
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.json.ParseException;
@@ -25,13 +26,24 @@ import com.axonactive.devdayapp.service.BookService;
 import com.axonactive.devdayapp.service.CommentService;
 import com.axonactive.devdayapp.service.SearchingService;
 
+import io.prometheus.client.Counter;
+import io.prometheus.client.Histogram;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/library-core/api")
+//Add a Prometheus metrics enpoint to the route `/prometheus`. `/metrics` is already taken by Actuator.
+//@EnablePrometheusEndpoint
+//Pull all metrics from Actuator and expose them as Prometheus metrics. Need to disable security feature in properties file.
+//@EnableSpringBootMetricsCollector
 public class LibraryCoreResource {
 
 	private static final Logger log = LogManager.getLogger(LibraryCoreResource.class);
-
+	// Define a counter metric for /prometheus
+		static final Counter requests = Counter.build().name("requests_total").help("Total number of requests.").register();
+		// Define a histogram metric for /prometheus
+		static final Histogram requestLatency = Histogram.build().name("requests_latency_seconds")
+				.help("Request latency in seconds.").register();
 	@Autowired
 	private BookService bookService;
 
@@ -85,11 +97,11 @@ public class LibraryCoreResource {
 
 	@PostMapping("/book-details/{bookDetailId}/comment")
 	public CommentDto addComment(@RequestHeader(value = "Authorization") Long userId,
-			@PathVariable("bookDetailId") Long bookDetailId, @RequestBody RequestComment comment) throws ParseException {
+			@PathVariable("bookDetailId") Long bookDetailId, @RequestBody RequestComment comment)
+			throws ParseException {
 		log.info("User {} comments {} for the book detail with id {}", userId, comment, bookDetailId);
 		return bookDetailService.addComment(userId, bookDetailId, comment.getParentId(), comment.getComment());
 	}
-
 
 	@PostMapping("/book-details/comment/{commentId}")
 	public CommentDto editComment(@RequestHeader(value = "Authorization") Long userId,
@@ -103,5 +115,21 @@ public class LibraryCoreResource {
 			@PathVariable("commentId") Long commentId) {
 		log.info("User {} removes comment the book detail with comment_id {}", userId, commentId);
 		return bookDetailService.removeComment(commentId);
+	}
+
+	
+
+	@RequestMapping("/")
+	String home() {
+		// Increase the counter metric
+		requests.inc();
+		// Start the histogram timer
+		Histogram.Timer requestTimer = requestLatency.startTimer();
+		try {
+			return "Hello World!";
+		} finally {
+			// Stop the histogram timer
+			requestTimer.observeDuration();
+		}
 	}
 }
