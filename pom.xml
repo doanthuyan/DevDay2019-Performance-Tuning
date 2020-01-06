@@ -15,7 +15,7 @@
 	</parent>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<springfox.swagger.version>2.9.2</springfox.swagger.version>
 		<swagger-annotations.version>1.5.21</swagger-annotations.version>
 		<swagger-models.version>1.5.21</swagger-models.version>
@@ -23,6 +23,7 @@
 		<initDBMode>never</initDBMode>
 		<metrics.version>0.5.1.RELEASE</metrics.version>
 		<prom.version>0.7.0</prom.version>
+		<cucumber.version>4.7.4</cucumber.version>
 	</properties>
 
 	<dependencies>
@@ -115,10 +116,29 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency> -->
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-java</artifactId>
+		    <version>${cucumber.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+	        <groupId>io.cucumber</groupId>
+	        <artifactId>cucumber-junit</artifactId>
+	        <version>${cucumber.version}</version>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-spring</artifactId>
+		    <version>${cucumber.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
