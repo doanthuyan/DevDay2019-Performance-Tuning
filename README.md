@@ -2,6 +2,7 @@
 DevDay2019 for Performance Tuning
 
 [![Actions Status](https://github.com/doanthuyan/DevDay2019-Performance-Tuning/workflows/Java%20CI/badge.svg)](https://github.com/doanthuyan/DevDay2019-Performance-Tuning/actions)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=doanthuyan_DevDay2019-Performance-Tuning&metric=alert_status)](https://sonarcloud.io/dashboard?id=doanthuyan_DevDay2019-Performance-Tuning)
 
 # Kick up and run
 
