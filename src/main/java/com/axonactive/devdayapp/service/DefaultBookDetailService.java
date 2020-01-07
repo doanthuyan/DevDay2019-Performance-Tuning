@@ -96,7 +96,7 @@ public class DefaultBookDetailService implements BookDetailService {
 		if (!book.isPresent()) {
 			return null;
 		}
-		Optional<Comment> parentComment = null;
+		Optional<Comment> parentComment = Optional.empty();
 		if (parentCommentId != null) {
 			parentComment = commentRepository.findById(parentCommentId);
 		}
@@ -104,8 +104,8 @@ public class DefaultBookDetailService implements BookDetailService {
 		newComment.setUser(user.get());
 		newComment.setBookDetail(book.get());
 		newComment.setContent(comment);
-		if (parentComment != null && parentComment.isPresent())
-		{
+		if (parentComment.isPresent()) {
+		
 			newComment.setParent(parentComment.get());
 		}
 		commentRepository.save(newComment);

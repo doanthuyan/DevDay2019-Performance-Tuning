@@ -28,14 +28,14 @@ public class DefaultLoginService implements LoginService {
 		{
             log.error(Constants.ERROR_LOG_MSG, getClass().getName(),
                 "registration", 
-                String.format("User already existed: userName=%s, password=%s", registerUser.getUsername(), registerUser.getPassword()));
+                String.format("User already existed: userName=%s", registerUser.getUsername()));
 			throw new UserAlreadyExistedException("Error when creating new user. User already existed.");
 		}
 		Boolean save = userService.save(RegisterUser.toUserDTO(registerUser));
 		if (!save)	{
             log.error(Constants.ERROR_LOG_MSG, getClass().getName(),
                 "registration", 
-                String.format("Cannot save user to database: userName=%s, password=%s", registerUser.getUsername(), registerUser.getPassword()));
+                String.format("Cannot save user to database: userName=%s", registerUser.getUsername()));
 			throw new InternalError("Error when creating new user. Cannot save user to database.");
 		}
         log.info(Constants.INFO_LOG_MSG, getClass().getName(),
@@ -52,13 +52,13 @@ public class DefaultLoginService implements LoginService {
 		{
             log.error(Constants.ERROR_LOG_MSG, getClass().getName(),
                 "login", 
-                String.format("User cannot be found: userName=%s, password=%s", username, password));
+                String.format("User cannot be found: userName=%s", username));
 			throw new UserNotFoundException("User cannot be found. Username: " + username);
 		}
 		if (!isValidPassword(password, userDto.getPassword())) {
             log.error(Constants.ERROR_LOG_MSG, getClass().getName(),
                 "login", 
-                String.format("User cannot be found: userName=%s, password=%s", username, password));
+                String.format("User cannot be found: userName=%s", username));
 			throw new InvalidUsernamePasswordException("User cannot be found. Username: " + username);
 		}
 
@@ -66,7 +66,7 @@ public class DefaultLoginService implements LoginService {
         log.info(Constants.INFO_LOG_MSG, getClass().getName(),
                 "login", 
                 System.currentTimeMillis() - startTime,
-                String.format("userName=%s, password=%s", username, password));
+                String.format("userName=%s", username));
 		return loginUser;
 	}
 

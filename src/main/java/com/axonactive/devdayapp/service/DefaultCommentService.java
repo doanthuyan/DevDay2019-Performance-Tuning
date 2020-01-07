@@ -26,10 +26,12 @@ public class DefaultCommentService implements CommentService {
 	public List<CommentDto> getCommentByBookId(long bookId) {
         long startTime = System.currentTimeMillis();
 		Optional<Book> result = bookRepo.findById(bookId);
-		List<CommentDto> comments = StreamSupport.stream(result.get().getDetails().spliterator(),false)
+		List<CommentDto> comments = Collections.emptyList();
+		if(result.isPresent()) {
+			comments = StreamSupport.stream(result.get().getDetails().spliterator(),false)
 				.flatMap(bookDetail -> Optional.ofNullable(BookDetailUtil.toBookDetailDto(bookDetail).getComments()).orElse( Collections.emptyList()).stream())
 				.collect(Collectors.toList());
-		
+		}
 		log.info(Constants.INFO_LOG_MSG, getClass().getName(),
                 "getCommentByBookId", 
                 System.currentTimeMillis() - startTime,

@@ -119,8 +119,8 @@ public class LibraryCoreResource {
 
 	
 
-	@RequestMapping("/")
-	String home() {
+	@GetMapping("/")
+	public String home() {
 		// Increase the counter metric
 		requests.inc();
 		// Start the histogram timer
