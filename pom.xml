@@ -24,6 +24,10 @@
 		<metrics.version>0.5.1.RELEASE</metrics.version>
 		<prom.version>0.7.0</prom.version>
 		<cucumber.version>4.7.4</cucumber.version>
+		<sonar.projectKey>doanthuyan_DevDay2019-Performance-Tuning</sonar.projectKey>
+  		<sonar.organization>doanthuyan-github</sonar.organization>
+  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  		<sonar.login>3123ec7989ce70d59bbffccaf49d35d7cdade44f</sonar.login>
 	</properties>
 
 	<dependencies>
