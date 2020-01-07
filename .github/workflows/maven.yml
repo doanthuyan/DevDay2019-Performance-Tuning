@@ -17,3 +17,6 @@ jobs:
       run:
         mvn -B verify sonar:sonar   --file pom.xml -DskipTests
         # mvn -B package --file pom.xml -DskipTests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
