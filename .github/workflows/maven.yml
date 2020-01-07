@@ -15,5 +15,5 @@ jobs:
         java-version: 1.11
     - name: Build with Maven
       run:
-        mvn -B verify sonar:sonar   --file pom.xml
+        mvn -B verify sonar:sonar   --file pom.xml -DskipTests
         # mvn -B package --file pom.xml -DskipTests
